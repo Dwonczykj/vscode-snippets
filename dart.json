@@ -1,0 +1,1228 @@
+// Place your snippets for dart here. Each snippet is defined under a snippet name and has a prefix, body and 
+// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+// same ids are connected.
+// Example:
+// "Print to console": {
+// 	"prefix": "log",
+// 	"body": [
+// 		"console.log('$1');",
+// 		"$2"
+// 	],
+// 	"description": "Log output to console"
+// }
+{
+	"intl_I10n": {
+		"prefix": "intl",
+		"body": [
+			"I10n.of(context).name",
+		]
+	},
+	"sentry_error_and_log": {
+		"prefix": "sentry_error_and_log",
+		"body": [
+			"log.error(e);",
+			"await Sentry.captureException(",
+			"  e,",
+			"  stackTrace: s, // from catch (e, s)",
+			"  hint: 'ERROR - fetchProductOptions $$e',",
+			");"
+		]
+	},
+	"map_sd": {
+		"prefix": "map_sd",
+		"body": [
+			"Map<String,dynamic>",
+		]
+	},
+	"sentry_error": {
+		"prefix": "sentry_error",
+		"body": [
+			"await Sentry.captureException(",
+			"  e,",
+			"  stackTrace: s, // from catch (e, s)",
+			"  hint: 'ERROR - fetchProductOptions $$e',",
+			");"
+		]
+	},
+	"sentry_warning": {
+		"prefix": "sentry_warn",
+		"body": [
+			"const warning = '${1:warning_message}';",
+			"await Sentry.captureMessage(",
+			"  warning,",
+			");"
+		]
+	},
+	"stateless": {
+		"prefix": "fless",
+		"body": [
+			"import 'package:flutter/material.dart';",
+			"class $1 extends StatelessWidget {",
+			"\t@override",
+			"\tWidget build(BuildContext context) {",
+			"\t\treturn Container(",
+			"\t\t\t$2",
+			"\t\t);",
+			"\t}",
+			"}"
+		]
+	},
+	"stateful": {
+		"prefix": "ffull",
+		"body": [
+			"import 'package:flutter/material.dart';",
+			"class $1 extends StatefulWidget {",
+			"\t@override",
+			" \t_$1State createState() => _$1State();",
+			"}",
+			"class _$1State extends State<$1> {",
+			" \t@override",
+			" \tWidget build(BuildContext context) {",
+			"\t\treturn Container(",
+			" \t\t\t$2",
+			"\t\t);",
+			"\t}",
+			"} "
+		]
+	},
+	"model_class": {
+		"prefix": "mcls",
+		"body": [],
+		"description": "A model class"
+	},
+	"model_manager": {
+		"prefix": "mmgr",
+		"body": [],
+		"description": "Implement a manager class for a model object"
+	},
+	"json_serializable_class": {
+		"prefix": "class-json-serializable",
+		"body": [
+			"import 'package:json_annotation\/json_annotation.dart';",
+			"",
+			"part '${TM_FILENAME_BASE}.g.dart';",
+			"",
+			"@JsonSerializable()",
+			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {",
+			"  factory ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}.fromJson(Map<String, dynamic> json) =>",
+			"      _$${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}FromJson(json);",
+			"",
+			"  Map<String, dynamic> toJson() => _$${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}ToJson(this);",
+			"  @JsonKey(name: '$1')",
+			"  String $1;",
+			"  int $2;",
+			"",
+			"  ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}({",
+			"    required this.$1,",
+			"  });",
+			"}",
+			"",
+		]
+	},
+	"freezed_class": {
+		"prefix": "freezed-serializable",
+		"body": [
+			"import 'package:freezed_annotation\/freezed_annotation.dart';",
+			"",
+			"part '${TM_FILENAME_BASE}.freezed.dart';",
+			"part '${TM_FILENAME_BASE}.g.dart';",
+			"",
+			"@Freezed()",
+			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} with _$${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {",
+			"  @JsonSerializable()",
+			"  factory ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}({",
+			"    required ${1:fieldtype} ${2:fieldname},",
+			"  }) = _${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/};",
+			"",
+			"  const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}._();",
+			"",
+			"  factory ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}.fromJson(Map<String, dynamic> json) =>",
+			"      _$${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}FromJson(json);",
+			"}",
+			"",
+		]
+	},
+	"class-model-manager": {
+		"prefix": "class-model-manager",
+		"description": "Manager (Provider) class for a model class",
+		"body": [
+			"import 'package:flutter/material.dart';",
+			"",
+			"import '${2/(.*)/${1:/pascalcase}/}.dart';",
+			"",
+			"class $1Manager extends ChangeNotifier {",
+			"  final _${2/(.)(.*)/${1:/downcase}$2/}s = <$2>[];",
+			"  int _selectedIndex = -1;",
+			"  bool _createNew$1 = false;",
+			"",
+			"  List<$2> get ${2/(.)(.*)/${1:/downcase}$2/}s => List.unmodifiable(_${2/(.)(.*)/${1:/downcase}$2/}s);",
+			"  int get selectedIndex => _selectedIndex;",
+			"  $2? get selectedGrocery$1 =>",
+			"      _selectedIndex != -1 ? _${2/(.)(.*)/${1:/downcase}$2/}s[_selectedIndex] : null;",
+			"  bool get isCreatingNew$1 => _createNew$1;",
+			"",
+			"  void createNew$1() {",
+			"    _createNew$1 = true;",
+			"    notifyListeners();",
+			"  }",
+			"",
+			"  void delete$1(int index) {",
+			"    _${2/(.)(.*)/${1:/downcase}$2/}s.removeAt(index);",
+			"    notifyListeners();",
+			"  }",
+			"",
+			"  void ${2/(.)(.*)/${1:/downcase}$2/}Tapped(int index) {",
+			"    _selectedIndex = index;",
+			"    _createNew$1 = false;",
+			"    notifyListeners();",
+			"  }",
+			"",
+			"  void add$1(${2/(.*)/${1:/pascalcase}/} ${2/(.)(.*)/${1:/downcase}$2/}) {",
+			"    _${2/(.)(.*)/${1:/downcase}$2/}s.add(${2/(.)(.*)/${1:/downcase}$2/});",
+			"    _createNew$1 = false;",
+			"    notifyListeners();",
+			"  }",
+			"",
+			"  void update$1(${2/(.*)/${1:/pascalcase}/} ${2/(.)(.*)/${1:/downcase}$2/}, int index) {",
+			"    _${2/(.)(.*)/${1:/downcase}$2/}s[index] = ${2/(.)(.*)/${1:/downcase}$2/};",
+			"    _selectedIndex = -1;",
+			"    _createNew$1 = false;",
+			"    notifyListeners();",
+			"  }",
+			"}",
+			"",
+		]
+	},
+	"add_json_conversion_methods": {
+		"prefix": "frmJson",
+		"description": "Add fromJson(json) and toJson() methods to the class",
+		"body": [
+			"factory $1.fromJson(Map<String, dynamic> json) =>",
+			"$1();",
+			"",
+			"Map<String, dynamic> toJson() =>",
+			"{};",
+		]
+	},
+	"redux_thunk_action": {
+		"prefix": "thunk_action",
+		"body": [
+			"ThunkAction<AppState> ${1:thunkActionName}(",
+			"  String ${6:arg1},",
+			"  void Function() successHandler,",
+			"  void Function(String, ${4:ErrCodeEnum}) errorHandler,",
+			") {",
+			"  return (Store<AppState> store) async {",
+			"    try {",
+			"      final ${3:arg1};",
+			"      store",
+			"        ..dispatch(${2:redux_action_class}(${3:arg1}: ${3:arg1}))",
+			"        ..dispatch(anotherThunkAction());",
+			"",
+			"      successHandler();",
+			"",
+			"    } catch (e, s) {",
+			"      log.error('ERROR - ${1:thunkActionName} $$e');",
+			"      await Sentry.captureException(",
+			"        e,",
+			"        stackTrace: s,",
+			"        hint: 'ERROR - ${1:thunkActionName} $$e',",
+			"      );",
+			"      errorHandler(",
+			"        'ERROR - ${1:thunkActionName} $$e',",
+			"        ${4:ErrCodeEnum}.${5:connectionIssue},",
+			"      );",
+			"    }",
+			"  };",
+			"}",
+		],
+		"description": "Thunk Action method to run logic using redux store"
+	},
+	"redux_T_Obj_action_class": {
+		"prefix": "redux_action_class",
+		"body": [
+			"class ${1:ReduxActionClassRTO} {",
+			"  ${1:ReduxActionClassRTO}({",
+			"    required this.${3:argName},",
+			"  });",
+			"",
+			"  final ${2:ArgType} ${3:argName};",
+			"",
+			"  @override",
+			"  String toString() {",
+			"    return '${1:ReduxActionClassRTO} : ${3:argName}';",
+			"  }",
+			"}",
+		],
+		"description": "Thunk Action class"
+	},
+	"imp-get": {
+		"prefix": "imp-get",
+		"body": [
+			"import 'package:get/get.dart';${0}",
+		],
+		"description": "import for GetX."
+	},
+	"imp-extensions": {
+		"prefix": "imp-extensions",
+		"body": [
+			"import 'package:banca_pratica_digital/app/data/extensions/extensions.dart';${0}",
+		],
+		"description": "imp-extensions"
+	},
+	"imp-dart-date": {
+		"prefix": "imp-dart-date",
+		"body": [
+			"import 'package:dart_date/dart_date.dart';${0}",
+		],
+		"description": "imp-dart-date"
+	},
+	"class": {
+		"prefix": "class",
+		"body": [
+			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g} {",
+			"  ${0}",
+			"}"
+		],
+		"description": "Class definition."
+	},
+	"class-provider": {
+		"prefix": "class-provider",
+		"body": [
+			"import 'package:get/get.dart';",
+			"import '../sessions/device_session.dart';",
+			"import 'i_repository_provider.dart';",
+			"",
+			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g} implements IRepositoryProvider {",
+			"  @override",
+			"  Future<I${1/(.*)/${1:/capitalize}/}Repository> getRepository() async {",
+			"    final _deviceSession = Get.find<DeviceSession>();",
+			"",
+			"    final isConnected = await _deviceSession.isConnected();",
+			"",
+			"    if (!isConnected) {",
+			"      return Storage${1/(.*)/${1:/capitalize}/}Repository(",
+			"        restClient: Get.find(),",
+			"        apiCacheStorageService: Get.find(),",
+			"      );",
+			"    }",
+			"",
+			"    return ${1/(.*)/${1:/capitalize}/}Repository(",
+			"      restClient: Get.find(),",
+			"      apiCacheStorageService: Get.find(),",
+			"    );",
+			"  }",
+			"} "
+		],
+		"description": "Class definition."
+	},
+	"constructor-class": {
+		"prefix": "constructor-class",
+		"body": [
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}() {",
+			"  ${0}",
+			"}"
+		],
+		"description": "constructor-class"
+	},
+	"constructor-inject-service": {
+		"prefix": "constructor-inject-service",
+		"body": [
+			"final I${1/(.*)/${1:/capitalize}/}Service _${1}Service;",
+			"",
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}({",
+			"  required I${1/(.*)/${1:/capitalize}/}Service ${1}Service,",
+			"}) : _${1}Service = ${1}Service;"
+		],
+		"description": "constructor-inject-service"
+	},
+	"constructor-inject-repository": {
+		"prefix": "constructor-inject-repository",
+		"body": [
+			"final I${1/(.*)/${1:/capitalize}/}Repository _${1}Repository;",
+			"",
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}({",
+			"  required I${1/(.*)/${1:/capitalize}/}Repository ${1}Repository,",
+			"}) : _${1}Repository = ${1}Repository;"
+		],
+		"description": "constructor-inject-repository"
+	},
+	"constructor-inject-session": {
+		"prefix": "constructor-inject-session",
+		"body": [
+			"final ${1/(.*)/${1:/capitalize}/}Session _${1}Session;",
+			"",
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}({",
+			"  required ${1/(.*)/${1:/capitalize}/}Session ${1}Session,",
+			"}) : _${1}Session = ${1}Session;"
+		],
+		"description": "constructor-inject-session"
+	},
+	"constructor-inject-provider": {
+		"prefix": "constructor-inject-provider",
+		"body": [
+			"final ${1/(.*)/${1:/capitalize}/}Provider _${1}Provider;",
+			"",
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}({",
+			"  required ${1/(.*)/${1:/capitalize}/}Provider ${1}Provider,",
+			"}) : _${1}Provider = ${1}Provider;"
+		],
+		"description": "constructor-inject-provider"
+	},
+	"constructor-inject-rest-client": {
+		"prefix": "constructor-inject-rest-client",
+		"body": [
+			"final RestClient _restClient;",
+			"",
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}({",
+			"  required RestClient restClient,",
+			"}) : _restClient = restClient;"
+		],
+		"description": "constructor-inject-rest-client"
+	},
+	"constructor-inject-api-storage": {
+		"prefix": "constructor-inject-api-storage",
+		"body": [
+			"final IApiCacheStorageService _apiCacheStorageService;",
+			"",
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}({",
+			"  required IApiCacheStorageService apiCacheStorageService,",
+			"}) : _apiCacheStorageService = apiCacheStorageService;"
+		],
+		"description": "constructor-inject-api-storage"
+	},
+	"constructor-inject-rest-client-with-api-storage": {
+		"prefix": "constructor-inject-rest-client-with-api-storage",
+		"body": [
+			"final RestClient _restClient;",
+			"final IApiCacheStorageService _apiCacheStorageService;",
+			"",
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}({",
+			"  required RestClient restClient,",
+			"  required IApiCacheStorageService apiCacheStorageService,",
+			"}) : _restClient = restClient,",
+			"     _apiCacheStorageService = apiCacheStorageService;"
+		],
+		"description": "constructor-inject-rest-client-with-api-storage"
+	},
+	"constructor-class-with-named-params": {
+		"prefix": "constructor-class-with-named-params",
+		"body": [
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}({",
+			"  ${0}",
+			"});"
+		],
+		"description": "constructor-class-with-named-params"
+	},
+	"constructor-class-not-instanciable": {
+		"prefix": "constructor-class-not-instanciable",
+		"body": [
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}._();",
+		],
+		"description": "constructor-class-not-instanciable"
+	},
+	"private-attribute": {
+		"prefix": "private-attribute",
+		"body": [
+			"final ${1/(.*)/${1:/capitalize}/} _${1};${0}"
+		],
+		"description": "Creates a private attribute for a class."
+	},
+	"readonly-property": {
+		"prefix": "roprop",
+		"body": [
+			"${3:fieldmodifier} $5${2:fieldtype} _${1:propname} = ${4:default};",
+			"${2} get ${1} => _${1};"
+		],
+		"description": "Creates a readonly dart class property backed by private field"
+	},
+	"try-catch2": {
+		"prefix": "try-catch",
+		"body": [
+			"try {",
+			"  ${0}",
+			"} catch (err) {",
+			"  print('Error: $$err');",
+			"};"
+		],
+		"description": "try-catch"
+	},
+	"try": {
+		"prefix": "try",
+		"body": [
+			"try {",
+			"  ${0}",
+			"} catch (err) {",
+			"  print('Error: $$err');",
+			"};"
+		],
+		"description": "try-catch"
+	},
+	"for-each-block": {
+		"prefix": "foreach",
+		"body": [
+			"for (final ${1:item} in ${2:iterable}){",
+			"  ${3:...}",
+			"}"
+		],
+		"description": "for each block"
+	},
+	"ifnot": {
+		"prefix": "ifnot",
+		"body": [
+			"if (!${1:condition}) {",
+			"  ${0}",
+			"}"
+		],
+		"description": "ifnot"
+	},
+	"ifnull": {
+		"prefix": "ifnull",
+		"body": [
+			"if (${1:condition} == null) {",
+			"  ${0}",
+			"}"
+		],
+		"description": "ifnull"
+	},
+	"ifnotnull": {
+		"prefix": "ifnotnull",
+		"body": [
+			"if (${1:condition} != null) {",
+			"  ${0}",
+			"}"
+		],
+		"description": "ifnotnull"
+	},
+	// Comments Section.
+	"Basic Comment": {
+		"prefix": "cm-basic",
+		"body": [
+			"/* ${1:comment} */${0}"
+		]
+	},
+	"Comment - Block style comment ": {
+		"prefix": "cm-block",
+		"body": [
+			"/*",
+			" * ${1:comment}",
+			" */",
+			"${0}",
+		]
+	},
+	"Section Comment": {
+		"prefix": "cm-section",
+		"body": [
+			"// ${1:comment}",
+			"// --------------------------------------------------------------------------",
+			"${0}"
+		]
+	},
+	"Sub-section Comment": {
+		"prefix": "cm-subsection",
+		"body": [
+			"/* ----------------  ${1:Subsection comment block}  ---------------- */",
+			"${0}",
+		]
+	},
+	"Section footer comment": {
+		"prefix": "cm-section_footer",
+		"body": [
+			"/* ----------------  End of ${1:Section comment block}  ---------------- */${0}"
+		]
+	},
+	"Describe Element Uses": {
+		"prefix": "cm-element_block",
+		"body": [
+			"/* ============================================================================",
+			" * ${1:element_name}",
+			" * ============================================================================",
+			" * ${2:element_description}",
+			" *",
+			" * Examples of use:",
+			" *",
+			" * ${3:examples}",
+			" *",
+			" * ========================================================================== */",
+			"${0}"
+		]
+	},
+	// Widgets and Props Section.
+	"border-radius": {
+		"prefix": "border-radius",
+		"body": [
+			"borderRadius: BorderRadius.${0},"
+		],
+		"description": "border-radius"
+	},
+	"border-radius-circular": {
+		"prefix": "border-radius-circular",
+		"body": [
+			"borderRadius: BorderRadius.circular(${1:value}),${0}"
+		],
+		"description": "border-radius-circular"
+	},
+	"main-axis-alignment": {
+		"prefix": "main-axis-alignment",
+		"body": [
+			"mainAxisAlignment: MainAxisAlignment.${1|start,end,center,spaceBetween,spaceAround,spaceEvenly|},${0}"
+		],
+		"description": "main-axis-alignment"
+	},
+	"cross-axis-alignment": {
+		"prefix": "cross-axis-alignment",
+		"body": [
+			"crossAxisAlignment: CrossAxisAlignment.${1|start,end,center,baseLine,stretch|},${0}"
+		],
+		"description": "cross-axis-alignment"
+	},
+	"alignment": {
+		"prefix": "alignment",
+		"body": [
+			"alignment: Alignment.${1|topLeft,topCenter,topRight,centerLeft,center,centerRight,bottomLeft,bottomCenter,bottomRight|},${0}"
+		],
+		"description": "alignment"
+	},
+	"wrap-alignment": {
+		"prefix": "wrap-alignment",
+		"body": [
+			"alignment: WrapAlignment.${1|start,end,center,spaceBetween,spaceAround,spaceEvenly|},${0}"
+		],
+		"description": "wrap-alignment"
+	},
+	"font-weight": {
+		"prefix": "font-weight",
+		"body": [
+			"fontWeight: FontWeight.${1|normal,bold,w100,w200,w300,w400,w500,w600,w700,w800,w900|},${0}"
+		],
+		"description": "font-weight"
+	},
+	"color": {
+		"prefix": "color",
+		"body": [
+			"color: Colors.${0},"
+		],
+		"description": "color"
+	},
+	"color-theme": {
+		"prefix": "color-theme",
+		"body": [
+			"color: Theme.of(context).${0},"
+		],
+		"description": "color-theme"
+	},
+	"theme-of": {
+		"prefix": "theme-of",
+		"body": [
+			"Theme.of(context).${0},"
+		],
+		"description": "theme-of"
+	},
+	"text-overflow": {
+		"prefix": "text-overflow",
+		"body": [
+			"overflow: TextOverflow.ellipsis,${0}"
+		],
+		"description": "text-overflow"
+	},
+	"sized-box-height": {
+		"prefix": "sized-box-height",
+		"body": [
+			"const SizedBox(height: ${1|5,10,15,20,25,30,35,40,45,50|}),${0}"
+		],
+		"description": "sized-box-height"
+	},
+	"sized-box-width": {
+		"prefix": "sized-box-width",
+		"body": [
+			"const SizedBox(width: ${1|5,10,15,20,25,30,35,40,45,50|}),${0}"
+		],
+		"description": "sized-box-width"
+	},
+	"space-vertical": {
+		"prefix": "space-vertical",
+		"body": [
+			"const SizedBox(height: ${1|5,10,15,20,25,30,35,40,45,50|}),${0}"
+		],
+		"description": "space-vertical"
+	},
+	"space-horizontal": {
+		"prefix": "space-horizontal",
+		"body": [
+			"const SizedBox(width: ${1|5,10,15,20,25,30,35,40,45,50|}),${0}"
+		],
+		"description": "space-horizontal"
+	},
+	"margin-all": {
+		"prefix": "margin-all",
+		"body": [
+			"margin: const EdgeInsets.all(${1:value}),${0}"
+		],
+		"description": "margin-all"
+	},
+	"margin-symmetric": {
+		"prefix": "margin-symmetric",
+		"body": [
+			"margin: const EdgeInsets.symmetric(${1:axys}),${0}"
+		],
+		"description": "margin-symmetric"
+	},
+	"margin-only": {
+		"prefix": "margin-only",
+		"body": [
+			"margin: const EdgeInsets.only(${1:side}),${0}"
+		],
+		"description": "margin-only"
+	},
+	"padding-all": {
+		"prefix": "padding-all",
+		"body": [
+			"padding: const EdgeInsets.all(${1:value}),${0}"
+		],
+		"description": "padding-all"
+	},
+	"padding-symmetric": {
+		"prefix": "padding-symmetric",
+		"body": [
+			"padding: const EdgeInsets.symmetric(${1:axys}),${0}"
+		],
+		"description": "padding-symmetric"
+	},
+	"padding-only": {
+		"prefix": "padding-only",
+		"body": [
+			"padding: const EdgeInsets.only(${1:side}),${0}"
+		],
+		"description": "padding-only"
+	},
+	"padding-zero": {
+		"prefix": "padding-zero",
+		"body": [
+			"padding: EdgeInsets.zero,${0}"
+		],
+		"description": "padding-zero"
+	},
+	"edge-insets-zero": {
+		"prefix": "edge-insets-zero",
+		"body": [
+			"EdgeInsets.zero,${0}"
+		],
+		"description": "edge-insets-zero"
+	},
+	"border-all": {
+		"prefix": "border-all",
+		"body": [
+			"border: Border.all(width: ${1:value}, color: Colors.${2:color}),${0}"
+		],
+		"description": "border-all"
+	},
+	"border-symmetric": {
+		"prefix": "border-symmetric",
+		"body": [
+			"border: Border.symmetric(${1:axys}),${0}"
+		],
+		"description": "border-symmetric"
+	},
+	"bouncing-scroll-physics": {
+		"prefix": "bouncing-scroll-physics",
+		"body": [
+			"physics: const BouncingScrollPhysics(),${0}"
+		],
+		"description": "bouncing-scroll-physics"
+	},
+	"scroll-direction": {
+		"prefix": "scroll-direction",
+		"body": [
+			"scrollDirection: Axis.${1|horizontal,vertical|},${0}"
+		],
+		"description": "scroll-direction"
+	},
+	"navigator-pop": {
+		"prefix": "navigator-pop",
+		"body": [
+			"Navigator.pop(context),${0}"
+		],
+		"description": "navigator-pop"
+	},
+	"navigator-push": {
+		"prefix": "navigator-push",
+		"body": [
+			"Navigator.push(",
+			"  context,",
+			"  MaterialPageRoute(",
+			"    builder: (context) => ${1:Page}(),",
+			"  ),",
+			"),${0}"
+		],
+		"description": "navigator-push"
+	},
+	"media-query": {
+		"prefix": "media-query",
+		"body": [
+			"MediaQuery.of(context).size.${1|width,height|},${0}"
+		],
+		"description": "media-query"
+	},
+	"get-size": {
+		"prefix": "get-size",
+		"body": [
+			"Get.${1|width,height|},${0}"
+		],
+		"description": "get-size"
+	},
+	"app-bar-theme": {
+		"prefix": "app-bar-theme",
+		"body": [
+			"appBarTheme: AppBarTheme(",
+			"  brightness: Brightness.dark,",
+			"),${0}"
+		],
+		"description": "app-bar-theme"
+	},
+	"app-bar-brightness": {
+		"prefix": "app-bar-brightness",
+		"body": [
+			"brightness: Brightness.${1|dark,light|},${0}",
+		],
+		"description": "app-bar-brightness"
+	},
+	"text-style": {
+		"prefix": "text-style",
+		"body": [
+			"style: TextStyle(",
+			"  color: Colors.${1},",
+			"  fontSize: ${2:size},",
+			"  fontWeight: FontWeight.${3|normal,bold,w100,w200,w300,w400,w500,w600,w700,w800,w900|},",
+			"),${0}",
+		],
+		"description": "text-style"
+	},
+	"text-style-weight": {
+		"prefix": "text-style-weight",
+		"body": [
+			"style: TextStyle(",
+			"  color: Colors.${1},",
+			"  fontSize: ${2:size},",
+			"  fontWeight: FontWeight.${3|normal,bold,w100,w200,w300,w400,w500,w600,w700,w800,w900|},",
+			"),${0}",
+		],
+		"description": "text-style-weight"
+	},
+	"text-style-size": {
+		"prefix": "text-style-size",
+		"body": [
+			"style: TextStyle(",
+			"  fontSize: ${1:size},",
+			"),${0}",
+		],
+		"description": "text-style-size"
+	},
+	"text-style-color": {
+		"prefix": "text-style-color",
+		"body": [
+			"style: TextStyle(",
+			"  color: Colors.${1},",
+			"),${0}",
+		],
+		"description": "text-style-color"
+	},
+	"text-style-theme-of": {
+		"prefix": "text-style-theme-of",
+		"body": [
+			"style: Theme.of(context).textTheme.${0}",
+		],
+		"description": "text-style-theme-of"
+	},
+	"image-asset": {
+		"prefix": "image-asset",
+		"body": [
+			"Image(",
+			"  height: ${1:height},",
+			"  width: ${2:width},",
+			"  image: AssetImage('assets/images/${3:assetUrl}'),",
+			"  fit: BoxFit.${4|fill,contain,cover,fitWidth,fitHeight,none,scaleDown|},",
+			"),${0}"
+		],
+		"description": "image-asset"
+	},
+	"fit-box-fit": {
+		"prefix": "fit-box-fit",
+		"body": [
+			"fit: BoxFit.${1|fill,contain,cover,fitWidth,fitHeight,none,scaleDown|},${0}",
+		],
+		"description": "fit-box-fit"
+	},
+	"icon-button": {
+		"prefix": "icon-button",
+		"body": [
+			"IconButton(",
+			"  icon: Icon(Icons.${1:iconName}),",
+			"  color: Colors.${2:colorName},",
+			"  iconSize: ${3:size},",
+			"  onPressed: () => ${0},",
+			"),"
+		],
+		"description": "icon-button"
+	},
+	"elevated-rect-button": {
+		"prefix": "elevated-rect-button",
+		"body": [
+			"ElevatedButton( ",
+			"  child: Text( ",
+			"    '${1:buttonText}', ",
+			"    style: TextStyle( ",
+			"      color: Colors.${2}, ",
+			"      fontSize: ${3:fontSize}, ",
+			"    ), ",
+			"  ), ",
+			"  style: ElevatedButton.styleFrom( ",
+			"    padding: const EdgeInsets.symmetric(horizontal: ${4:value}), ",
+			"    primary: Theme.of(context).${5}, ",
+			"    shape: RoundedRectangleBorder( ",
+			"      borderRadius: BorderRadius.circular(${6:value}), ",
+			"    ), ",
+			"  ), ",
+			"  onPressed: () => {}, ",
+			"),${0} "
+		],
+		"description": "elevated-rect-button"
+	},
+	"elevated-circ-button": {
+		"prefix": "elevated-circ-button",
+		"body": [
+			"ElevatedButton( ",
+			"  child: Icon( ",
+			"    Icons.${1}, ",
+			"    size: ${2:size}, ",
+			"  ), ",
+			"  style: ElevatedButton.styleFrom( ",
+			"    primary: Theme.of(context).${3}, ",
+			"    shape: CircleBorder(), ",
+			"    padding: EdgeInsets.all(${4:value}), ",
+			"  ), ",
+			"  onPressed: () => {}, ",
+			") "
+		],
+		"description": "elevated-circ-button"
+	},
+	"container-image": {
+		"prefix": "container-image",
+		"body": [
+			"decoration: BoxDecoration(",
+			"  image: DecorationImage(",
+			"    image: AssetImage('assets/images/${1:assetUrl}'),",
+			"    fit: BoxFit.cover,",
+			"  ),",
+			"  borderRadius: BorderRadius.circular(${2:value}),",
+			"),${0}"
+		],
+		"description": "container-image"
+	},
+	"container-border-radius": {
+		"prefix": "container-border-radius",
+		"body": [
+			"decoration: BoxDecoration(",
+			"  borderRadius: BorderRadius.circular(${1:value}),",
+			"  border: Border.all(${2:value}),",
+			"  color: Colors.${0},",
+			"),"
+		],
+		"description": "container-border-radius"
+	},
+	"container-box-shadow": {
+		"prefix": "container-box-shadow",
+		"body": [
+			"decoration: BoxDecoration(",
+			"  boxShadow: [",
+			"    BoxShadow(",
+			"      color: Colors.black26,",
+			"      offset: Offset(3, 0),",
+			"      blurRadius: 6,",
+			"    ),",
+			"  ],",
+			"),"
+		],
+		"description": "container-box-shadow"
+	},
+	"container-box-shadow-bottom-sheet": {
+		"prefix": "container-box-shadow-bottom-sheet",
+		"body": [
+			"decoration: BoxDecoration(",
+			"  boxShadow: [",
+			"    BoxShadow(",
+			"      color: Colors.black26,",
+			"      offset: Offset(0, -1),",
+			"      blurRadius: 6,",
+			"    ),",
+			"  ],",
+			"),"
+		],
+		"description": "container-box-shadow-bottom-sheet"
+	},
+	"column": {
+		"prefix": "column",
+		"body": [
+			"Column(",
+			"  children: [",
+			"    ${0}",
+			"  ],",
+			"),"
+		],
+		"description": "column"
+	},
+	"row": {
+		"prefix": "row",
+		"body": [
+			"Row(",
+			"  children: [",
+			"    ${0}",
+			"  ],",
+			"),"
+		],
+		"description": "row"
+	},
+	"border-radius-only": {
+		"prefix": "border-radius-only",
+		"body": [
+			"borderRadius: BorderRadius.only(",
+			"  topLeft: Radius.circular(24),",
+			"  topRight: Radius.circular(24),",
+			"), "
+		],
+		"description": "border-radius-only"
+	},
+	"text": {
+		"prefix": "text",
+		"body": [
+			"Text('${0}',),",
+		],
+		"description": "text"
+	},
+	"text-span": {
+		"prefix": "text-span",
+		"body": [
+			"TextSpan(text: '${0}'),",
+		],
+		"description": "text-span"
+	},
+	"text-span-children": {
+		"prefix": "text-span-children",
+		"body": [
+			"TextSpan(",
+			"  children: [",
+			"    ${0}",
+			"  ],",
+			"), "
+		],
+		"description": "text-span-children"
+	},
+	"final-void-function": {
+		"prefix": "final-void-function",
+		"body": [
+			"final void Function()? ${1:functionName};",
+		],
+		"description": "final-void-function"
+	},
+	"final-void-call-back": {
+		"prefix": "final-void-call-back",
+		"body": [
+			"final VoidCallback ${1:functionName};",
+		],
+		"description": "final-void-call-back"
+	},
+	"outlined-icon-button": {
+		"prefix": "outlined-icon-button",
+		"body": [
+			"OutlinedButton(",
+			"  onPressed: () => {},",
+			"  style: OutlinedButton.styleFrom(",
+			"    padding: EdgeInsets.zero,",
+			"    shape: RoundedRectangleBorder(",
+			"      borderRadius: BorderRadius.circular(${1:value}),",
+			"    ),",
+			"  ),",
+			"  child: Icon(Icons.${0}),",
+			"),"
+		],
+		"description": "outlined-icon-button"
+	},
+	"status-bar-icon-brightness": {
+		"prefix": "status-bar-icon-brightness",
+		"body": [
+			"SystemChrome.setSystemUIOverlayStyle(",
+			"  SystemUiOverlayStyle.dark",
+			"    .copyWith(statusBarIconBrightness: Brightness.dark),",
+			");"
+		],
+		"description": "status-bar-icon-brightness"
+	},
+	"get-find": {
+		"prefix": "get-find",
+		"body": [
+			"Get.find()${0}",
+		],
+		"description": "get-find"
+	},
+	"get-width": {
+		"prefix": "get-width",
+		"body": [
+			"Get.width,${0}",
+		],
+		"description": "get-width"
+	},
+	"get-height": {
+		"prefix": "get-height",
+		"body": [
+			"Get.height,${0}",
+		],
+		"description": "get-height"
+	},
+	"width-get-width": {
+		"prefix": "width-get-width",
+		"body": [
+			"width: Get.width,${0}",
+		],
+		"description": "width-get-width"
+	},
+	"height-get-height": {
+		"prefix": "height-get-height",
+		"body": [
+			"height: Get.height,${0}",
+		],
+		"description": "height-get-height"
+	},
+	"form-key": {
+		"prefix": "form-key",
+		"body": [
+			"final formKey = GlobalKey<FormState>();${0}",
+		],
+		"description": "form-key"
+	},
+	"text-editing-controller": {
+		"prefix": "text-editing-controller",
+		"body": [
+			"final ${1:inputName}EC = TextEditingController();${0}",
+		],
+		"description": "text-editing-controller"
+	},
+	"text-input-action": {
+		"prefix": "text-input-action",
+		"body": [
+			"textInputAction: TextInputAction.${1|none,unspecified,done, go,search,send,next,previous,continueAction,join,route,emergencyCall,newline|},${0}",
+		],
+		"description": "text-input-action"
+	},
+	"text-capitalization": {
+		"prefix": "text-capitalization",
+		"body": [
+			"textCapitalization: TextCapitalization.${1|words,sentences,characters,none|},${0}",
+		],
+		"description": "text-capitalization"
+	},
+	"keyboard-type": {
+		"prefix": "keyboard-type",
+		"body": [
+			"keyboardType = TextInputType.${1|datetime,emailAddress,multiline,name,none,number,phone,streetAddress,text,url,visiblePassword,values|},${0}",
+		],
+		"description": "keyboard-type"
+	},
+	"ensure-initialized": {
+		"prefix": "ensure-initialized",
+		"body": [
+			"WidgetsFlutterBinding.ensureInitialized();${0}",
+		],
+		"description": "ensure-initialized"
+	},
+	"get-put-service": {
+		"prefix": "get-put-service",
+		"body": [
+			"Get.put(${1/(.*)/${1:/capitalize}/}Service());${0}",
+		],
+		"description": "get-put-service"
+	},
+	"get-put-session": {
+		"prefix": "get-put-session",
+		"body": [
+			"Get.put(${1/(.*)/${1:/capitalize}/}Session());${0}",
+		],
+		"description": "get-put-session"
+	},
+	"get-put-repository": {
+		"prefix": "get-put-repository",
+		"body": [
+			"Get.put(${1/(.*)/${1:/capitalize}/}Repository());${0}",
+		],
+		"description": "get-put-repository"
+	},
+	"get-view": {
+		"prefix": "get-view",
+		"body": [
+			"GetView<${1/(.*)/${1:/capitalize}/}Controller>${0}",
+		],
+		"description": "get-view"
+	},
+	"get-repository": {
+		"prefix": "get-repository",
+		"body": [
+			"final _${1:name}Repository = await _${1}Provider.getRepository();${0}",
+		],
+		"description": "get-repository"
+	},
+	"get-put-controller": {
+		"prefix": "get-put-controller",
+		"body": [
+			"Get.put(${1/(.*)/${1:/capitalize}/}Controller());${0}",
+		],
+		"description": "get-put-controller"
+	},
+	"get-lazy-put-provider": {
+		"prefix": "get-lazy-put-provider",
+		"body": [
+			"Get.lazyPut<${1/(.*)/${1:/capitalize}/}Provider>(",
+			"  () => ${1/(.*)/${1:/capitalize}/}Provider(),",
+			");${0}"
+		],
+		"description": "get-lazy-put-provider"
+	},
+	"get-lazy-put-service": {
+		"prefix": "get-lazy-put-service",
+		"body": [
+			"Get.lazyPut<I${1/(.*)/${1:/capitalize}/}Service>(",
+			"  () => ${1/(.*)/${1:/capitalize}/}Service(${1}Repository: Get.find(),),",
+			");${0}"
+		],
+		"description": "get-lazy-put-service"
+	},
+	"get-lazy-put-repository": {
+		"prefix": "get-lazy-put-repository",
+		"body": [
+			"Get.lazyPut<I${1/(.*)/${1:/capitalize}/}Repository>(",
+			"  () => ${1/(.*)/${1:/capitalize}/}Repository(restClient: Get.find(),),",
+			");",
+			"",
+			"Get.lazyPut<I${1/(.*)/${1:/capitalize}/}Service>(",
+			"  () => ${1/(.*)/${1:/capitalize}/}Service(${1}Repository: Get.find(),),",
+			");${0}"
+		],
+		"description": "get-lazy-put-repository"
+	},
+	"list-from-map-and-json": {
+		"prefix": "list-from-map-and-json",
+		"body": [
+			"List<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}> ${2:listName}FromJson(jsonData) =>",
+			"    List<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}>.from(",
+			"      jsonData?.map(",
+			"        (data) => ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}.fromMap(data),",
+			"      ),",
+			"    );",
+			"",
+			"List<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}> ${2}FromMap(mapData) => mapData",
+			"    .map<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}>(",
+			"      (data) => ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/g}.fromMap(data),",
+			"    )",
+			"    .toList();${0}"
+		],
+		"description": "list-from-map-and-json"
+	},
+}

@@ -1,0 +1,166 @@
+{
+	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"pandas.agg": {
+		"prefix": "pandasAgg",
+		"body": [
+			"def non_nan_mean(x:pd.Series):",
+			"    if x.empty:",
+			"        return None",
+			"    else: ",
+			"        x = x.dropna()",
+			"    return np.mean(x)",
+		],
+		"description": "Define a new custom pandas aggregator function"
+	},
+	"pandas.df.groupby.transform": {
+		"prefix": "pandasDfGroupbyTransform",
+		"body": [
+			"def ${2:aggregator_fn}(df:pd.DataFrame):",
+			"    pass",
+			"",
+			"groupby_cols = [${1:column_names}]",
+			"gpdf = ${4:df}.groupby(groupby_cols).apply(${2:aggregator_fn})",
+			"gpdf.name = \"${3:aggregated_column_name}\"",
+			"${4:df} = ${4:df}.join(gpdf, on=groupby_cols)",
+		],
+		"description": "Define a new custom pandas aggregator function"
+	},
+	"jupyter.h1": {
+		"prefix": "nbh",
+		"body": [
+			"<h$1 style=\"color:${2:green}\">$3</h$1>"
+		],
+		"description": "Define a header tag for a jupyter notebook"
+	},
+	"property_getter": {
+		"prefix": "pGet",
+		"body": [
+			"@property",
+			"def ${1:x}(self):",
+			"    \"\"\"${2:I'm the '${1:x}' property.}\"\"\"",
+			"    return self._${1:x}",
+			"",
+			"",
+		],
+		"description": "Define a python class readonly property getter only"
+	},
+	"property_setter": {
+		"prefix": "pGetSet",
+		"body": [
+			"@property",
+			"def ${1:x}(self):",
+			"    \"\"\"I'm the '${1:x}' property.\"\"\"",
+			"    return self._${1:x}",
+			"",
+			"@${1:x}.setter",
+			"def ${1:x}(self, value):",
+			"    self._${1:x} = value",
+			"",
+		],
+		"description": "Define a python class property getter & setter"
+	},
+	"property_getter_setter_deleter": {
+		"prefix": "pAll",
+		"body": [
+			"@property",
+			"def ${1:x}(self):",
+			"    \"\"\"I'm the '${1:x}' property.\"\"\"",
+			"    return self._${1:x}",
+			"",
+			"@${1:x}.setter",
+			"def ${1:x}(self, value):",
+			"    self._${1:x} = value",
+			"",
+			"@${1:x}.deleter",
+			"def ${1:x}(self):",
+			"    del self._${1:x}",
+			"",
+		],
+		"description": "Define a python class property with getter, setter and deleter"
+	},
+	"regx_findall_example": {
+		"prefix": "regx_findall",
+		"body": [
+			"pattern = r'${1:pattern}'",
+			"statement = '${2:statement}'",
+			"ms:list[str] | None = re.findall(pattern, statement)",
+		],
+		"description": "Find all matches in statement and return list of matching strings, no groups!"
+	},
+	"regx_match_example": {
+		"prefix": "regx_match",
+		"body": [
+			"pattern = r'${1:pattern}'",
+			"statement = '${2:statement}'",
+			"match:re.Match | None = re.match(pattern, statement)",
+			"match_groups: tuple = match.groups if match is not None else ()",
+			"named_match_groups: dict = match.groupdict() if match is not None else {}",
+		],
+		"description": "Find Match Instance in statment and return a match object"
+	},
+	"singleton_pattern_class_template": {
+		"prefix": "singleton_init",
+		"body": [
+			"from __future__ import annotations",
+			"",
+			"class ${1:SingletonName}Singleton():",
+			"    '''Singleton: Call getInstance() to get'''",
+			"    __instance: ${1:SingletonName}Singleton | None = None",
+			"",
+			"    @staticmethod",
+			"    def getInstance(*rgs, **kwrgs):",
+			"        \"\"\" Static access method. \"\"\"",
+			"        if ${1:SingletonName}Singleton.__instance == None:",
+			"            ${1:SingletonName}Singleton(*rgs, **kwrgs)",
+			"",
+			"        assert isinstance(${1:SingletonName}Singleton.__instance,",
+			"                          ${1:SingletonName}Singleton)",
+			"        return ${1:SingletonName}Singleton.__instance",
+			"",
+			"    def __init__(self, *rgs, **kwrgs):",
+			"        \"\"\" Virtually private constructor. \"\"\"",
+			"        if ${1:SingletonName}Singleton.__instance != None:",
+			"            raise Exception(type(self).__name__ + \" class is a singleton!\")",
+			"        else:",
+			"            ${1:SingletonName}Singleton.__instance = self",
+		],
+		"description": "Create new singleton class with static get_instance method"
+	},
+	"singleton_pattern_get_instance_method": {
+		"prefix": "singleton_get_instance",
+		"body": [
+			"def __init__(self${2:, *rgs, **kwrgs}):",
+			"    \"\"\" Virtually private constructor. \"\"\"",
+			"    if ${1:Singleton}.__instance != None:",
+			"        raise Exception(type(self).__name__ + \" class is a Singleton!\")",
+			"    else:",
+			"        ${1:Singleton}.__instance = self",
+			"",
+			"__instance: ${1:Singleton} | None = None",
+			"",
+			"@staticmethod",
+			"def getInstance(${2:*rgs, **kwrgs}):",
+			"    \"\"\" Static access method. \"\"\"",
+			"    if ${1:Singleton}.__instance == None:",
+			"        ${1:Singleton}(${2:*rgs, **kwrgs})",
+			"",
+			"    assert isinstance(${1:Singleton}.__instance,",
+			"                        ${1:Singleton})",
+			"    return ${1:Singleton}.__instance",
+			"",
+		],
+		"description": "Add singleton initialiser to a class with static get_instance method"
+	},
+}
