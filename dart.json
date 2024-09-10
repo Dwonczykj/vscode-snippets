@@ -124,9 +124,15 @@
 		"prefix": "freezed-serializable",
 		"body": [
 			"import 'package:freezed_annotation\/freezed_annotation.dart';",
+			"import 'package:daily_j\/helpers\/helpers.dart';",
 			"",
 			"part '${TM_FILENAME_BASE}.freezed.dart';",
 			"part '${TM_FILENAME_BASE}.g.dart';",
+			"",
+			"List<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}> fromJson${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}sList(dynamic json) =>",
+			"    fromSailsListOfObjectJson<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}>(${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}.fromJson)(json);",
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}? fromJson${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}(dynamic json) =>",
+			"    fromSailsObjectJson<${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}>(${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}.fromJson)(json);",
 			"",
 			"@Freezed()",
 			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} with _$${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {",
@@ -138,7 +144,7 @@
 			"  const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}._();",
 			"",
 			"  factory ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}.fromJson(Map<String, dynamic> json) =>",
-			"      _$${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}FromJson(json);",
+			"      tryCatchRethrowInline(() => _$${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}FromJson(json),);",
 			"}",
 			"",
 		]
@@ -195,6 +201,17 @@
 		]
 	},
 	"add_json_conversion_methods": {
+		"prefix": "frmJson",
+		"description": "Add fromJson(json) and toJson() methods to the class",
+		"body": [
+			"factory $1.fromJson(Map<String, dynamic> json) =>",
+			"$1();",
+			"",
+			"Map<String, dynamic> toJson() =>",
+			"{};",
+		]
+	},
+	"freezed_add_json_conversion_methods": {
 		"prefix": "frmJson",
 		"description": "Add fromJson(json) and toJson() methods to the class",
 		"body": [
